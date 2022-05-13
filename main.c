@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "token.h"
-
+#include "tree.h"
 #define MAXSIZE 1024
 
 
@@ -15,7 +15,6 @@ int main(){
     }
     sz += 1;
 
-    for(int i = 0; i < sz; i++) print_token(&tokens[i], 0);
-    printf("\n");
+    
     
 }

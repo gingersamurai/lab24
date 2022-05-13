@@ -1,5 +1,5 @@
-#ifndef transform_h
-#define transform_h
+#ifndef token_h
+#define token_h
 
 typedef struct{
     // o ( ) d v F
@@ -13,6 +13,6 @@ typedef struct{
 int read_token(token *t);
 
 // выводим токен
-void print_token(token *t, int dbg);
+void print_token(token *t);
 
 #endif

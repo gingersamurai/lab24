@@ -27,12 +27,11 @@ int read_token(token *t){
     return 1;
 }
 
-void print_token(token *t, int dbg){
-    if (dbg) printf("[%c]", t->type);
-    if (t->type == 'o') printf("%c ", t->op_name);
-    else if (t->type == '(') printf("( ");
-    else if (t->type == ')') printf(") ");
-    else if (t->type == 'd') printf("%d ", t->val);
-    else if (t->type == 'v') printf("%c ", t->var_name);
-    else if (t->type == 'F') printf(" : ");
+void print_token(token *t){
+    if (t->type == 'o') printf("%c", t->op_name);
+    else if (t->type == '(') printf("(");
+    else if (t->type == ')') printf(")");
+    else if (t->type == 'd') printf("%d", t->val);
+    else if (t->type == 'v') printf("%c", t->var_name);
+    else if (t->type == 'F') printf(";");
 }
