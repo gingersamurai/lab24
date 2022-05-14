@@ -9,10 +9,14 @@ typedef struct{
     char var_name;
 } token;
 
+// узнаем приоритет оператора 
+int get_priority(token *t);
+
 // считываем токен
 int read_token(token *t);
 
 // выводим токен
 void print_token(token *t);
+
 
 #endif

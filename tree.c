@@ -5,11 +5,8 @@
 #include "tree.h"
 
 
-
-node *create_node(token in_data){
+node *create_node(){
     node *res_node = (node *) malloc(sizeof(node));
-    
-    res_node->data = in_data;
     res_node->l = NULL;
     res_node->r = NULL;
     
@@ -20,7 +17,41 @@ void print_tree(node *now_node, int depth){
     if (now_node->r != NULL) {
         print_tree(now_node->r, depth+1);
     }
-    for (int i = 0; i < depth; i++) printf("  ");
+    for (int i = 0; i < depth; i++) printf("    ");
     print_token(&now_node->data);
     printf("\n");
+    if (now_node->l != NULL) print_tree(now_node->l, depth+1);
+}
+
+void build_tree(node *now_node, int li, int ri, token tokens[]){
+    if (ri < li) return;
+    int scdep = 0;
+    int mn = 1000000;
+    int mnid = -1;
+    for (int i = li; i <= ri; i++){
+        if (tokens[i].type == '(') scdep+=1;
+        else if (tokens[i].type == ')') scdep-=1;
+        else if (tokens[i].type == 'o') {
+            int now_p = scdep*10 + get_priority(&tokens[i]);
+            if (now_p < mn) {
+                mn = now_p;
+                mnid = i;
+            }
+        }
+    }
+    if (mnid == -1) {
+        for (int i = li; i <= ri; i++){
+            if (tokens[i].type == 'd' || tokens[i].type == 'v'){
+                now_node->data = tokens[i];
+                break;
+            }
+        }
+    } else {
+        now_node->data = tokens[mnid];
+        now_node->l = create_node();
+        now_node->r = create_node();
+        build_tree(now_node->l, li, mnid-1, tokens);
+        build_tree(now_node->r, mnid+1, ri, tokens);
+    }
+    
 }

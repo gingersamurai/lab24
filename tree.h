@@ -11,12 +11,13 @@ struct _node{
 };
 
 // создаем вершинку
-node *create_node(token in_data);
+node *create_node();
 
 // печатаем дерево 
 void print_tree(node *now_node, int depth);
 
-
+// представляем выражение в виде дерева
+void build_tree(node *now_node, int li, int ri, token tokens[]);
 
 
 

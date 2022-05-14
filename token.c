@@ -3,6 +3,16 @@
 #include <ctype.h>
 #include "token.h"
 
+int get_priority(token *t){
+    if (t->op_name == '+' || t->op_name == '-') {
+        return 1;
+    } else if (t->op_name == '*' || t->op_name == '/') {
+        return 2;
+    } else if (t->op_name ==  '^') {
+        return 3;
+    }
+}
+
 int read_token(token *t){
     char c = fgetc(stdin);
     while (isspace(c)) c = fgetc(stdin);
@@ -35,3 +45,4 @@ void print_token(token *t){
     else if (t->type == 'v') printf("%c", t->var_name);
     else if (t->type == 'F') printf(";");
 }
+
