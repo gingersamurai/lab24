@@ -97,7 +97,9 @@ void print_exp(node *now_node){
         printf("%c", now_node->data.op_name);
         print_exp(now_node->r);
         printf(")");
-    } else {
+    } else if (now_node->data.type == 'd'){
         printf("%d", now_node->data.val);
+    } else {
+        printf("%c", now_node->data.var_name);
     }
 }
