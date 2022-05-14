@@ -23,6 +23,12 @@ void print_tree(node *now_node, int depth){
     if (now_node->l != NULL) print_tree(now_node->l, depth+1);
 }
 
+void delete_tree(node *now_node){
+    if (now_node->l != NULL) delete_tree(now_node->l);
+    if (now_node->r != NULL) delete_tree(now_node->r);
+    free(now_node);
+}
+
 void build_tree(node *now_node, int li, int ri, token tokens[]){
     if (ri < li) return;
     int scdep = 0;
@@ -54,4 +60,44 @@ void build_tree(node *now_node, int li, int ri, token tokens[]){
         build_tree(now_node->r, mnid+1, ri, tokens);
     }
     
+}
+
+
+void transform_tree(node *now_node){
+    if (now_node->data.op_name == '^'){
+        if (now_node->r->data.op_name == '+'){
+            node *la = now_node->l;
+            node *lb = now_node->r->l;
+            node *lc = now_node->r->r;
+
+            now_node->data.op_name = '*';
+
+            now_node->l = create_node();
+            now_node->l->data.type = 'o';
+            now_node->l->data.op_name = '^';
+
+            now_node->l->l = la;
+            now_node->l->r = lb;
+
+            
+            now_node->r->data.op_name = '^';
+            now_node->r->l = la;
+            
+        }
+    }
+    if (now_node->l != NULL) transform_tree(now_node->l);
+    if (now_node->r != NULL) transform_tree(now_node->r);
+}
+
+
+void print_exp(node *now_node){
+    if (now_node->data.type == 'o') {
+        printf("("); 
+        print_exp(now_node->l);
+        printf("%c", now_node->data.op_name);
+        print_exp(now_node->r);
+        printf(")");
+    } else {
+        printf("%d", now_node->data.val);
+    }
 }

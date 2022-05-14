@@ -1,4 +1,5 @@
-
+run : main
+	./main
 main : token.o tree.o main.o
 	gcc main.o token.o tree.o -o main
 

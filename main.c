@@ -18,8 +18,17 @@ int main(){
 
     node *root = create_node();
     build_tree(root, 0, sz-1, tokens);
+    
+    printf("before transformation:\n");
     print_tree(root, 0);
+
+    transform_tree(root);
     
-    
+    printf("after transformation:\n");
+    print_tree(root, 0);
+
+    printf("result expression:\n");
+    print_exp(root);
+    printf("\n");
     
 }
